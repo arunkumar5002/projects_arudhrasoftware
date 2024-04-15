@@ -1,0 +1,639 @@
+<?php $menu_user_id = $this->session->userdata('user_id'); ?>
+<!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="<?=base_url().'dashboard' ?>" class="brand-link" style="text-align:center;background:#fff;">
+		<img src="<?php echo base_url(logo());?>" alt="AdminLTE Logo" class="" style="opacity: .8">
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+		
+		<?php if($this->session->userdata('user_emp')==1){ ?>
+			<?php $user_details = $this->session->userdata('user_details'); ?>
+			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="image">
+					<img src="<?= base_url().'uploads/employee_profile/'.$user_details->profile_image ?>" class="img-circle elevation-2" alt="User Image">
+				</div>
+				<div class="info">
+					<a href="#" class="d-block"><?= $user_details->employeename ?></a>
+				</div>
+			</div>
+		<?php } ?>
+     
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+					<li class="nav-item">
+						<a href="<?=base_url().'dashboard' ?>" class="nav-link">
+							<i class="fas fa-tachometer-alt"></i>
+							<p>Dashboard</p>
+						</a>
+					</li>
+					
+					<?php if($this->session->userdata('user_emp')==1){ ?> 
+						<li class="nav-item">
+							<a href="<?= base_url().'leave_request_master' ?>" class="nav-link">
+								<i class="far fa-circle"></i>
+								<p>Leave Request Master</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="<?= base_url().'employee_profile' ?>" class="nav-link">
+								<i class="far fa-circle"></i>
+								<p>Profile</p>
+							</a>
+						</li>
+					<?php }else{ ?>
+					
+	<?php
+		$val = get_role_permission_list(2);
+		if(!empty($val)){
+	?>
+		<li class="nav-item ">
+			<a href="#" class="nav-link">
+			<i class="fas fa-cogs"></i>
+				<p> Configuration</p>
+				<i class="right fas fa-angle-left"></i>
+			</a>
+			 <ul class="nav nav-treeview">
+			<!--	<li class="nav-item">
+					<a href="" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Opening Balance</p>
+					</a>
+				</li> -->
+				<li class="nav-item">
+					<a href="<?php echo base_url()?>Company/company_master_list" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Company Master</p>
+					</a>
+				</li>
+			<!--	<li class="nav-item">
+					<a href="" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Financial Year Master </p>
+					</a>
+				</li> -->
+			  
+			 <!-- <li class="nav-item">
+                <a href="<?php echo base_url()?>UserManagement/usermaster_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User Master </p>
+                </a>
+              </li>-->
+				<li class="nav-item">
+					<a href="<?= base_url().'department_master' ?>" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Department Master</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url().'designation_master' ?>"  class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Designation Master</p>
+					</a>
+				</li>
+			  
+			  
+			  <li class="nav-item">
+                 <a href="<?= base_url().'vat_master' ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>VAT Master </p>
+                </a>
+              </li>
+				<li class="nav-item">
+					<a href="<?= base_url().'attendance_master' ?>" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Attendance Master</p>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url().'salary_master' ?>" class="nav-link">
+						<i class="far fa-circle nav-icon"></i>
+						<p>Salary Master</p>
+					</a>
+				</li>
+			  
+			  
+			<!--  <li class="nav-item">
+                <a href="<?php echo base_url()?>Company/setting" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Settings </p>
+                </a>
+              </li> -->
+			  <li class="nav-item">
+               <a href="<?= base_url().'shift_timing_master' ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Shift Timing Master </p>
+                </a>
+              </li>
+			  
+			 <!--<li class="nav-item">
+                <a href="<?= base_url().'user_account_type_master' ?>"  class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> User Account Master </p>
+                </a>
+              </li> -->
+			  
+			  </ul>
+					</li>
+	<?php } ?>
+
+<?php
+		$val = get_role_permission_list(3);
+		if(!empty($val)){
+	?>
+    <!--   <li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="fas fa-building"></i>
+							<p> Finance</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Chart Of Accounts</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Voucher</p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Customer Receipt </p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Supplier Payment </p>
+                </a>
+              </li>
+			  
+			  
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Balance Sheet </p>
+                </a>
+              </li>
+			  
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Porfit & Loss</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>General Ledger</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>General Ledger - Subcategory</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Trial Balance</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>GST Form 5 Return</p>
+                </a>
+              </li>
+			  
+			  
+			  </ul>
+					</li> -->
+<?php } ?>
+
+<?php
+		$val = get_role_permission_list(4);
+		if(!empty($val)){
+	?>
+
+
+    <!--   <li class="nav-item ">
+						<a href="#" class="nav-link">
+							<i class="fas fa-university"></i>
+							<p> Bank Reconcilliation</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Bank/bank_form" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank Entries</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Bank/bank_entries_upload" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank Entries Upload</p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Bank/Bank_Entries_Final" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank Entries Final</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="<?php echo base_url()?>Bank/Bank_Entries_View" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank Entries View</p>
+                </a>
+              </li>
+			  
+			  </ul>
+			  </li> -->
+			  <?php } ?>
+<?php
+		$val = get_role_permission_list(5);
+		if(!empty($val)){
+	?>
+
+    <!--   <li class="nav-item ">
+						<a href="#" class="nav-link">
+				<i class="fas fa-money-check-alt"></i>
+							<p> Inventory Master</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Web/itemmaster" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Item Master </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url()?>Accounts/new_closing_stock_list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Closing Stock</p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>GRN</p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>GDN (Goods Dispatch Notes)</p>
+                </a>
+              </li>
+			  
+</ul>
+</li>  -->
+<?php } ?>
+<?php
+		$val = get_role_permission_list(6);
+		if(!empty($val)){
+	?>
+
+ <!-- <li class="nav-item">
+						<a href="#" class="nav-link">
+							
+ 
+ 
+<i class="fas fa-money-bill-alt"></i>
+							<p> Aging Schedule</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aging - Invoice - Sales </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aging - Invoice - Purchase </p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aging - Voucher - Purchase </p>
+                </a>
+              </li>
+			  
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aging - Voucher - Sales </p>
+                </a>
+              </li>
+			  
+</ul>
+</li> -->
+<?php } ?>
+
+	<?php
+		$val = get_role_permission_list(1);
+		if(!empty($val)){
+	?>
+	<li class="nav-item">
+		<a href="#" class="nav-link">
+			<i class="fas fa-users"></i>
+			<p>HR</p>
+			<i class="right fas fa-angle-left"></i>
+		</a>
+		<ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="<?= base_url().'employee_master' ?>" class="nav-link ">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Employee Master</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?= base_url().'attendance' ?>" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Attendance Master</p>
+                </a>
+            </li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Attendance/attendance_master" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p> Attendance List</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?= base_url().'leave_approve_master' ?>" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Leave Approve Master</p>
+				</a>
+			</li>
+			
+			<li class="nav-item">
+               <a href="<?= base_url().'loanmaster_form' ?>" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Loan Master</p>
+                </a>
+            </li>
+			<li class="nav-item">
+				<a href="<?php echo base_url()?>Hr/salary_master" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Salary Master</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/payslip_generator" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Payslip Generator</p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/levy_master" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Levy Master </p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/salary_slip" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Salary Slip </p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/pay_rol" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p> Payroll </p>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/salary_sheet" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Salary Sheet </p>
+				</a>
+			</li>
+			<!--<li class="nav-item">
+				<a href="<?php echo base_url() ?>Hr/leave_category" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Leave category </p>
+				</a>
+			</li>-->
+			<!--<li class="nav-item">
+                <a href="<?php echo base_url() ?>Hr/leave_management_list" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Leave Management </p>
+                </a>
+            </li>-->
+			<li class="nav-item">
+               <a href="<?php echo base_url() ?>Perfomance/employee_perform_list" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>Employee Performance </p>
+                </a>
+            </li>
+		</ul>
+	</li>
+	<?php } ?>
+<?php
+		$val = get_role_permission_list(7);
+		if(!empty($val)){
+	?>
+ <!-- <li class="nav-item">
+						<a href="#" class="nav-link">
+			<i class="fas fa-suitcase"></i>
+							<p>Purchase</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Quote</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Order</p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Invoice</p>
+                </a>
+              </li>
+
+
+</ul>
+</li> -->
+					
+<?php } ?>
+<?php
+		$val = get_role_permission_list(8);
+		if(!empty($val)){
+	?>
+ <!-- <li class="nav-item">
+						<a href="#" class="nav-link">
+			<i class="fas fa-cart-arrow-down"></i>
+							<p> Sales</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+                  <li class="nav-item">
+				  
+                <a href="" class="nav-link ">
+				
+                  <i class="far fa-circle nav-icon"></i>
+				
+                  <p>Sales Quote</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales Order</p>
+                </a>
+              </li>
+			  
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales Invoice</p>
+                </a>
+              </li>
+      <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quick Sales Invoice</p>
+                </a>
+              </li>
+
+</ul>
+</li> -->
+<?php } ?>
+<?php
+		$val = get_role_permission_list(9);
+		if(!empty($val)){
+	?>
+
+<!--  <li class="nav-item">
+						<a href="#" class="nav-link">
+				<i class="fas fa-newspaper"></i>
+							<p> Reports</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Invoice</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales Invoice</p>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quick Sales Invoice</p>
+                </a>
+              </li>
+			  
+			  
+			  </ul>
+			  </li> -->
+			  <?php } ?>
+<?php
+		$val = get_role_permission_list(10);
+		if(!empty($val)){
+	?>
+
+ <!-- <li class="nav-item">
+						<a href="#" class="nav-link">
+					<i class="fas fa-bezier-curve"></i>
+							<p> Logistics</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+					<ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Contacts</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Monthly Followup </p>
+                </a>
+              </li>
+			  </ul>
+			  </li>    --> 
+			  <?php } ?>
+			  
+			  <?php
+		$val = get_role_permission_list(12);
+		if(!empty($val)){
+	?>
+
+  <li class="nav-item">
+						<a href="#" class="nav-link">
+					<i class="far fa-calendar-alt"></i>
+							<p> Leave Management</p>
+							<i class="right fas fa-angle-left"></i>
+						</a>
+				
+			  </li>     
+			  <?php } ?>
+			  		  <?php
+		$val = get_role_permission_list(11);
+		if(!empty($val)){
+	?>
+			<li class="nav-item">
+				<a href="<?=base_url().'users_master' ?>" class="nav-link">
+					<i class="fas fa-user-cog"></i>
+					<p>User Access </p>
+				</a>
+			</li>
+			
+			<?php } ?>
+			 <?php } ?>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

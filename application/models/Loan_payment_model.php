@@ -1,0 +1,75 @@
+<?php
+class Loan_payment_model extends CI_Model{
+	
+	public function __construct() {
+		parent::__construct();
+		$this->load->database();
+		
+		$this->table = 'loan_payment_history';       
+		$this->column_order = array(
+            '0'=>'id',
+			'1'=>'payment_date',
+            '2'=>'payment_amount',
+			'3'=>'payment_method',
+			'4'=>'payment_details',
+        );
+		$this->column_search = array(
+			'0'=>'loan_master.id',
+			'1'=>'payment_date',
+            '2'=>'payment_amount',
+			'3'=>'payment_method',
+			'4'=>'payment_details',
+        );
+        $this->order = array('payment_date' => 'DESC');
+	}
+	
+	public function getRows($postData){
+        $this->_get_datatables_query($postData);
+        if($postData['length'] != -1){
+            $this->db->limit($postData['length'], $postData['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    public function countAll($postData){
+        $this->db->from($this->table);
+        $this->db->where('payment_loan_id',$postData['loan_id']);
+        return $this->db->count_all_results();
+    }
+    
+    public function countFiltered($postData){
+        $this->_get_datatables_query($postData);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    private function _get_datatables_query($postData){
+        $this->db->from($this->table);
+        $i = 0;
+        foreach($this->column_search as $item){
+            if($postData['search']['value']){
+                if($i===0){
+                    $this->db->group_start();
+                    $this->db->like($item, $postData['search']['value']);
+                }else{
+                    $this->db->or_like($item, $postData['search']['value']);
+                }
+                
+                if(count($this->column_search) - 1 == $i){
+                    $this->db->group_end();
+                }
+            }
+            $i++;
+        }
+		$this->db->where('payment_loan_id',$postData['loan_id']);
+		
+        if(isset($postData['order'])){
+			$this->db->order_by($this->column_order[$postData['order']['0']['column']], $postData['order']['0']['dir']);
+        }else if(isset($this->order)){
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+}
+?>
